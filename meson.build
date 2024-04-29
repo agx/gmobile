@@ -14,6 +14,7 @@ localedir = prefix / get_option('localedir')
 libdir = prefix / get_option('libdir')
 pkgdatadir = datadir / meson.project_name()
 pkglibdir = libdir / meson.project_name()
+udevdir = prefix / 'lib' / 'udev'
 
 global_c_args = ['-DGMOBILE_COMPILATION']
 
@@ -97,6 +98,7 @@ summary({
     'Tests': get_option('tests'),
     'Introspection': get_option('introspection'),
     'Docmentation': get_option('gtk_doc'),
+    'Hwdb': get_option('hwdb'),
   },
   bool_yn: true,
   section: 'Build',

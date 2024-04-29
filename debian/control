@@ -36,11 +36,24 @@ Multi-Arch: same
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
+ libgmobile0-common (>= ${source:Version}),
 Description: Mobile related helpers - shared library
  gmobile is a library containing mobile related helpers for
  glib based projects.
  .
  This package contains the shared library.
+
+Package: libgmobile0-common
+Section: misc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Recommends: libgmobile0
+Description: common files for the gmobile library
+ gmobile is a library containing mobile related helpers for
+ glib based projects.
+ .
+ This package contains common files like the hwdb and udev rules.
 
 Package: libgmobile-examples
 Architecture: any
