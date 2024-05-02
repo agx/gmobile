@@ -8,12 +8,12 @@ project('gmobile', 'c',
 cc = meson.get_compiler('c')
 
 prefix = get_option('prefix')
-bindir = join_paths(prefix, get_option('bindir'))
-datadir = join_paths(prefix, get_option('datadir'))
-localedir = join_paths(prefix, get_option('localedir'))
-libdir = join_paths(prefix, get_option('libdir'))
-pkgdatadir = join_paths(datadir, meson.project_name())
-pkglibdir = join_paths(libdir, meson.project_name())
+bindir = prefix / get_option('bindir')
+datadir = prefix / get_option('datadir')
+localedir = prefix / get_option('localedir')
+libdir = prefix / get_option('libdir')
+pkgdatadir = datadir / meson.project_name()
+pkglibdir = libdir / meson.project_name()
 
 global_c_args = ['-DGMOBILE_COMPILATION']
 
