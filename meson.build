@@ -98,6 +98,7 @@ summary({
     'Tests': get_option('tests'),
     'Introspection': get_option('introspection'),
     'Docmentation': get_option('gtk_doc'),
+    'Manual pages': get_option('man'),
     'Hwdb': get_option('hwdb'),
   },
   bool_yn: true,
