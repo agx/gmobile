@@ -9,6 +9,7 @@ Build-Depends:
  libjson-glib-dev,
  meson,
  pkgconf,
+ python3-docutils <!nodoc>,
 Standards-Version: 4.6.2
 Section: libs
 Homepage: https://gitlab.gnome.org/World/Phosh/gmobile/
@@ -36,11 +37,24 @@ Multi-Arch: same
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
+ libgmobile-common (>= ${source:Version}),
 Description: Mobile related helpers - shared library
  gmobile is a library containing mobile related helpers for
  glib based projects.
  .
  This package contains the shared library.
+
+Package: libgmobile-common
+Section: misc
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Recommends: libgmobile0
+Description: common files for the gmobile library
+ gmobile is a library containing mobile related helpers for
+ glib based projects.
+ .
+ This package contains common files like the hwdb and udev rules.
 
 Package: libgmobile-examples
 Architecture: any

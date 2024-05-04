@@ -7,7 +7,7 @@ test_env = [
 ]
 
 test_cflags = [
-  '-DTEST_DATA_DIR="@0@"'.format(join_paths(meson.current_source_dir(), 'data')),
+  '-DTEST_DATA_DIR="@0@"'.format(meson.current_source_dir() / 'data'),
 ]
 
 tests = [

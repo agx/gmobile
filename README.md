@@ -37,6 +37,9 @@ API documentation is available at https://world.pages.gitlab.gnome.org/Phosh/gmo
 If you want to add display panel information for a new device see
 this post on [notch support](https://phosh.mobi/posts/notch-support/).
 
+If you want to add support for wakeup keys see the
+[manpage](./doc/gmobile.udev.rst).
+
 # Getting in Touch
 * Issue tracker: https://gitlab.gnome.org/World/Phosh/gmobile/-/issues
 * Matrix: https://im.puri.sm/#/room/#phosh:talk.puri.sm
