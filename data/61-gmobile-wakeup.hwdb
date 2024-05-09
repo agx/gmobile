@@ -49,6 +49,16 @@
 # would remove the volume keys from the list of wakeup keys
 
 ###########################################################
+# Pine64
+###########################################################
+
+# PinePhone beta. 114,115 are the volume keys
+
+gmobile:name:1c21800.lradc:dt:pine64,pinephone-1.2pine64*
+ GM_WAKEUP_KEY_114=0
+ GM_WAKEUP_KEY_115=0
+
+###########################################################
 # Purism
 ###########################################################
 
@@ -57,6 +67,8 @@
 gmobile:atkbd:dmi:bvn*:bvr*:svnPurism:pnLibrem11:*
  GM_WAKEUP_KEY_114=0
  GM_WAKEUP_KEY_115=0
+
+# Purism Librem 5 phone. 114,115 are the volume keys
 
 gmobile:name:gpio-keys:dt:purism,librem5*
  GM_WAKEUP_KEY_114=0
