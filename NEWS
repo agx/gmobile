@@ -1,3 +1,12 @@
+gmobile 0.2.0
+-------------
+Released: May 2024
+* Add hwdb for wakeup keys that allow e.g. Wayland compositors to figure out
+  whether a key should unblank the screen. See gmobile.udev(5) for details.
+* Contributors:
+    * Guido Günther
+    * nee
+
 gmobile 0.1.0
 -------------
 Released: March 2024
