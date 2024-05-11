@@ -118,7 +118,7 @@ Then, to trigger a reload of all properties on your device, run: ::
     sudo udevadm trigger /sys/class/input/eventX
 
 Then check with ``udevadm info`` whether the properties were updated, see
-:ref:`hwdb_querying`. If a new property does not appear on the device, use ``udevadm
+`Querying the hwdb`. If a new property does not appear on the device, use ``udevadm
 test`` to check for error messages by udev and the hwdb (e.g. syntax errors
 in the udev rules files). ::
 
@@ -141,7 +141,7 @@ right match format. gmobile ships with a set of rules to query the hwdb,
 the different rules are reflected by their prefix. Again, **this is not part
 of the public API**. gmobile's matches are
 composed of a literal "gmobile", then either the device name (prefixed
-with `name:`) followed by the machine's first device tree comptible
+with `name:`) followed by the machine's first device tree compatible
 (prefixed with `dt:`) or dmi modalias. For example:
 
 ::
