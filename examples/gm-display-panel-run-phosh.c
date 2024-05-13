@@ -18,6 +18,8 @@
 #include <gio/gio.h>
 #include <glib/gprintf.h>
 
+#include <math.h>
+
 #define PHOSH_BIN "/usr/libexec/phosh"
 
 GMainLoop   *loop;
@@ -74,6 +76,47 @@ write_phoc_ini (GmDisplayPanel *panel, gdouble scale)
 }
 
 
+/* Auto scale calculation copied verbatim from phoc */
+
+#define MIN_WIDTH       360.0
+#define MIN_HEIGHT      540.0
+#define MAX_DPI_TARGET  180.0
+#define INCH_IN_MM      25.4
+
+static float
+phoc_utils_compute_scale (int32_t phys_width, int32_t phys_height,
+                          int32_t width, int32_t height)
+{
+  float dpi, max_scale, scale;
+
+  /* Ensure scaled resolution won't be inferior to minimum values */
+  max_scale = fminf (height / MIN_HEIGHT, width / MIN_WIDTH);
+
+  /*
+   * Round the maximum scale to a sensible value:
+   *   - never use a scaling factor < 1
+   *   - round to the lower 0.25 step below 2
+   *   - round to the lower 0.5 step between 2 and 3
+   *   - round to the lower integer value over 3
+   */
+  if (max_scale < 1) {
+    max_scale = 1;
+  } else if (max_scale < 2) {
+    max_scale = 0.25 * floorf (max_scale / 0.25);
+  } else if (max_scale < 3) {
+    max_scale = 0.5 * floorf (max_scale / 0.5);
+  } else {
+    max_scale = floorf (max_scale);
+  }
+
+  dpi = (float) height / (float) phys_height * INCH_IN_MM;
+  scale = fminf (ceilf (dpi / MAX_DPI_TARGET), max_scale);
+
+  return scale;
+}
+
+
+
 int main (int argc, char **argv)
 {
   g_autoptr (GOptionContext) opt_context = NULL;
@@ -85,7 +128,7 @@ int main (int argc, char **argv)
   GStrv compatibles_opt = NULL;
   g_autofree char *phoc_ini = NULL;
   g_autoptr (GSubprocessLauncher) phoc_launcher = NULL;
-  double scale_opt = 1.0;
+  double scale_opt = -1.0;
   const char *phosh_bin;
 
   const GOptionEntry options [] = {
@@ -126,6 +169,14 @@ int main (int argc, char **argv)
     return EXIT_FAILURE;
   }
 
+  if (scale_opt < 0) {
+    scale_opt = phoc_utils_compute_scale (gm_display_panel_get_width (panel),
+                                          gm_display_panel_get_height (panel),
+                                          gm_display_panel_get_x_res (panel),
+                                          gm_display_panel_get_y_res (panel));
+    g_message ("Using scale %f", scale_opt);
+  }
+
   phoc_ini = write_phoc_ini (panel, scale_opt);
   if (!phoc_ini)
     return EXIT_FAILURE;
@@ -145,6 +196,7 @@ int main (int argc, char **argv)
     g_subprocess_launcher_setenv (phoc_launcher, "GMOBILE_DT_COMPATIBLES", opt, TRUE);
   }
   g_subprocess_launcher_setenv (phoc_launcher, "WLR_BACKENDS", "wayland", TRUE);
+
   phoc = g_subprocess_launcher_spawnv (phoc_launcher,
                                        (const char * const [])
                                        { "phoc", "-C", phoc_ini,
