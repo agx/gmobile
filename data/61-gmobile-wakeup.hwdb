@@ -67,7 +67,12 @@ gmobile:name:Volume keys:dt:oneplus,fajita*
 ###########################################################
 
 # PinePhone beta. 114,115 are the volume keys
-gmobile:name:1c21800.lradc:dt:pine64,pinephone-1.2pine64*
+gmobile:name:1c21800.lradc:dt:pine64,pinephone-1.*
+ GM_WAKEUP_KEY_114=0
+ GM_WAKEUP_KEY_115=0
+
+# PinePhone Pro. 114,115 are the volume keys
+gmobile:name:adc-keys:dt:pine64,pinephone-pro*
  GM_WAKEUP_KEY_114=0
  GM_WAKEUP_KEY_115=0
 
