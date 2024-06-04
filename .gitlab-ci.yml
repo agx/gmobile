@@ -2,7 +2,9 @@ include:
  - project: 'guidog/meta-phosh'
    ref: 'f3c92e90dcc0d65322888217429b75dd101bd0d3'
    file: '/ci/phosh-common-jobs.yml'
- - remote: 'https://gitlab.freedesktop.org/freedesktop/ci-templates/-/raw/d03cddbcff35f26861429fc816c00323f48e99af/templates/ci-fairy.yml'
+ - project: 'Infrastructure/Mirrors/lorry-mirrors/gitlab_freedesktop_org/freedesktop/ci-templates'
+   ref: 'b791bd48996e3ced9ca13f1c5ee82be8540b8adb'
+   file: '/templates/ci-fairy.yml'
 
 stages:
   - build
