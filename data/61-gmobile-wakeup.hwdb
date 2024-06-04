@@ -49,6 +49,12 @@
 # would remove the volume keys from the list of wakeup keys
 
 ###########################################################
+# Generic AVRCP bluetooth hardware
+###########################################################
+gmobile:name:* _AVRCP_:*
+ GM_WAKEUP_KEY_DEFAULT=0
+
+###########################################################
 # Juno Computers
 ###########################################################
 
