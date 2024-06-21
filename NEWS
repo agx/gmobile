@@ -1,3 +1,22 @@
+gmobile 0.2.1
+-------------
+Released: June 2024
+* New hwdb entries:
+    * Generic AVRCP bluetooth (e.g. Headsets with volume buttons)
+    * Juno Tablets
+    * OnePlus 6/6T
+    * Pine64 Pinephone Pro
+* Updated hwdb entries:
+    * Pine64 PinePhone
+* Simplify the run-phosh helper to test notch information
+* Contributors:
+    * Arnaud Ferraris
+    * Giovanni Caligaris
+    * Guido Günther
+    * Philip Hands
+* Issues fixed:
+    * https://gitlab.gnome.org/World/Phosh/gmobile/-/issues/7
+
 gmobile 0.2.0
 -------------
 Released: May 2024

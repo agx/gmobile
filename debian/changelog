@@ -1,3 +1,40 @@
+gmobile (0.2.1) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * Revert "ci: Add workaround for broken gcovr in Debian"
+    This reverts commit 40a273a03c5c72b9e9790b459acf31f285291bb6.
+    Debian testing has a fixed gcovr (7.2+really-1.1) again.
+  * examples/run-phosh: Use scale calculation from phoc.
+    Since we don't have physical dimensions for the nested display one had
+    to pass in the scale to use manually. Use the data from gmobile when
+    available.
+  * data: Add wakeup key info for OnePlus 6/6T
+  * ci: Use fdo mirror in GNOME infra. This avoids an external dependency
+  * data/hwdb: Simplify entries for volume button only controllers.
+    On the PP{,P} and OnePlus {Enchilada,Fajita} the volume keys are the
+    only buttons on the respective controllers so we can use
+    GM_WAKEUP_KEY_DEFAULT instead of listing individual keys.
+  * data/hwdb: Add Juno tablets.
+    Closes: https://gitlab.gnome.org/World/Phosh/gmobile/-/issues/7
+    Thanks to Giovanni Caligaris
+  * data/hwdb: Add generic AVRCP bluetooth hardware.
+    This ensures external BT devies using this profile don't trigger unblank
+    by default.
+    Note that udev translates the `(AVRCP)` to `_AVRCP_`.
+    Thanks to Philip Hands <phil@hands.com> for debugging this with me
+
+  [ Arnaud Ferraris ]
+  * data/hwdb: Add wakeup key info for  PinePhone Pro
+  * data/hwdb: Fix PinePhone compatible string.
+    The compatible string used for the original PinePhone is wrong and too
+    restrictive:
+    * the main string ends with the HW revision, the final `pine64` is the
+      start of another compatible string
+    * there are more revisions in the wild than only `1.2`, we should
+      account for those as well
+
+ -- Guido Günther <agx@sigxcpu.org>  Fri, 21 Jun 2024 22:01:52 +0200
+
 gmobile (0.2.0) experimental; urgency=medium
 
   [ Guido Günther ]
