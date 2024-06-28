@@ -3,7 +3,7 @@
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-CONFIGURE_OPTS  = -Dexamples=true -Dgtk_doc=true
+CONFIGURE_OPTS  = -Dexamples=true
 CONFIGURE_OPTS += -Dtests=$(if $(filter nocheck,$(DEB_BUILD_PROFILES)),false,true)
 CONFIGURE_OPTS += -Dgtk_doc=$(if $(filter nodoc,$(DEB_BUILD_PROFILES)),false,true)
 CONFIGURE_OPTS += -Dman=$(if $(filter nodoc,$(DEB_BUILD_PROFILES)),false,true)
