@@ -7,7 +7,7 @@ guarantees at this point in time.
 
 ## License
 
-gmobile is licensed under the LGPLv2.1-or-later.
+gmobile is licensed under the GPL-3-or-later and LGPLv2.1-or-later.
 
 ## Getting the source
 
