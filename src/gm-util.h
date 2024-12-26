@@ -16,3 +16,5 @@
   ((x) == NULL || (x)[0] == '\0')
 #define gm_strv_is_null_or_empty(x) \
   ((x) == NULL || (x)[0] == NULL)
+
+GStrv gm_list_devices (void);
