@@ -5,6 +5,7 @@
     <file preprocess="json-stripblanks">devices/display-panels/daria,zahedan.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/fairphone,fp4.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/fairphone,fp5.json</file>
+    <file preprocess="json-stripblanks">devices/display-panels/furilabs,flx1.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/gigaset,gs5.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/gigaset,gx4.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/moto,bronco.json</file>
