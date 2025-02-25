@@ -8,6 +8,7 @@
     <file preprocess="json-stripblanks">devices/display-panels/gigaset,gs5.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/gigaset,gx4.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/moto,bronco.json</file>
+    <file preprocess="json-stripblanks">devices/display-panels/nothing,spacewar.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/pixel,oriole.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/pixel,raven.json</file>
     <file preprocess="json-stripblanks">devices/display-panels/oneplus,enchilada.json</file>
