@@ -60,8 +60,8 @@ if get_option('buildtype') != 'plain'
 endif
 
 epoll_dep = dependency('epoll-shim', required: false)
-glib_dep = dependency('glib-2.0', version: '>=2.66')
-gio_dep = dependency('gio-2.0', version: '>=2.66')
+glib_dep = dependency('glib-2.0', version: '>=2.78')
+gio_dep = dependency('gio-2.0', version: '>=2.78')
 json_glib_dep = dependency('json-glib-1.0', version: '>= 1.6.2',
                    fallback: ['json-glib', 'json_glib_dep'])
 
