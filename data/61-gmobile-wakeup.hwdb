@@ -138,6 +138,17 @@ gmobile:name:pm8941_resin:dt:samsung,a5*
   GM_WAKEUP_KEY_114=0
 
 ###########################################################
+# SHIFT GmbH
+###########################################################
+
+# SHIFT6mq phone. 114,115 are volume keys
+gmobile:name:pm8941_resin:dt:shift,axolotl*
+ GM_WAKEUP_KEY_114=0
+
+gmobile:name:gpio-keys:dt:shift,axolotl*
+ GM_WAKEUP_KEY_115=0
+
+###########################################################
 # Xiaomi
 ###########################################################
 
