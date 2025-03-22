@@ -1,3 +1,35 @@
+gmobile (0.2.2) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * packaging: Don't set gtk_doc twice
+  * doc: Link to wakeup key post.
+    It has additional details to the manpage
+  * data: Add display-panel for Furilabs FLX1.
+    This information was built from scratch to be able to actually match the
+    camera cutout and run unmodified gmobile / phosh.
+  * build: Bump glib dependency.
+    We want to use g_strv_builder_take()
+  * util: Add helper to list all known devices.
+    This makes it easier to e.g. show them in lists
+  * data/hwdb: Add Google Pixel 3a (Sargo)
+    Closes: https://gitlab.gnome.org/World/Phosh/gmobile/-/issues/12
+    Thanks to Giovanni Caligaris
+
+  [ Rafael Fontenelle ]
+  * Add GPL-3-or-later to README.md
+
+  [ Sam Day ]
+  * data/hwdb: Add Samsung Galaxy A5 wakeup keys
+
+  [ Eugene Lepshy ]
+  * data: Add display information for nothing,spacewar
+
+  [ Evangelos Ribeiro Tzaras ]
+  * data/hwdb: Add xioami-daisy
+  * data/hwdb: Add shift6mq wakeup keys
+
+ -- Guido Günther <agx@sigxcpu.org>  Fri, 21 Mar 2025 18:43:07 +0100
+
 gmobile (0.2.1) experimental; urgency=medium
 
   [ Guido Günther ]

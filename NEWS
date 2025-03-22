@@ -1,3 +1,23 @@
+gmobile 0.2.2
+-------------
+Released March 2025
+* Wakeup key support for:
+  * Google Pixel 3a (sargo)
+  * SHIFT6mq
+  * Samsung Galaxy A5
+  * Xioami Mi A2 Lite (daisy)
+* Display panel support for:
+  * Furilabs FLX1
+  * Nothing Phone 1 (spacewar)
+* Issues fixed:
+    * https://gitlab.gnome.org/World/Phosh/gmobile/-/issues/12
+* Contributors:
+    * Eugene Lepshy
+    * Evangelos Ribeiro Tzaras
+    * Guido Günther
+    * Rafael Fontenelle
+    * Sam Day
+
 gmobile 0.2.1
 -------------
 Released: June 2024
