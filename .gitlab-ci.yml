@@ -1,6 +1,6 @@
 include:
  - project: 'guidog/meta-phosh'
-   ref: 'f3c92e90dcc0d65322888217429b75dd101bd0d3'
+   ref: 'a9fef9ad314e8b387fb9b293b9f064527ac0c023'
    file: '/ci/phosh-common-jobs.yml'
  - project: 'Infrastructure/Mirrors/lorry-mirrors/gitlab_freedesktop_org/freedesktop/ci-templates'
    ref: 'b791bd48996e3ced9ca13f1c5ee82be8540b8adb'
@@ -124,6 +124,11 @@ format-check:
   stage: style-checks
   extends: .phosh-format-check
   allow_failure: true
+
+check-meson:
+  stage: style-checks
+  extends:
+    - .phosh-check-meson
 
 package-deb-debian-trixie:arm64:
   stage: package
