@@ -103,15 +103,30 @@ static GSourceFuncs gm_timeout_once_source_funcs = {
 };
 
 
+static const char *
+clockid_to_name (int clockid)
+{
+  switch (clockid) {
+  case CLOCK_BOOTTIME:
+    return "[gm] boottime timeout source";
+  case CLOCK_BOOTTIME_ALARM:
+    return "[gm] boottime wakeup timeout source";
+  default:
+    g_assert_not_reached();
+    return "";
+  }
+}
+
+
 static GSource *
 gm_timeout_source_once_new (gulong timeout_ms, int clockid)
 {
   int fdf, fsf;
-  GmTimeoutOnce *timer = (GmTimeoutOnce *) g_source_new (&gm_timeout_once_source_funcs,
-                                                         sizeof (GmTimeoutOnce));
+  GmTimeoutOnce *timer;
 
+  timer = (GmTimeoutOnce *) g_source_new (&gm_timeout_once_source_funcs, sizeof (GmTimeoutOnce));
   timer->timeout_ms = timeout_ms;
-  g_source_set_static_name ((GSource *)timer, "[gm] boottime timeout source");
+  g_source_set_name ((GSource *)timer, clockid_to_name (clockid));
   timer->fd = timerfd_create (clockid, 0);
   if (timer->fd == -1)
     return (GSource*)timer;
@@ -209,4 +224,39 @@ gm_timeout_add_seconds_once (int             seconds,
   g_return_val_if_fail (function != NULL, 0);
 
   return gm_timeout_add_seconds_once_full (G_PRIORITY_DEFAULT, seconds, function, data, NULL);
+}
+
+
+guint
+gm_wakeup_timeout_add_seconds_once_full (gint            priority,
+                                         gulong          seconds,
+                                         GSourceOnceFunc function,
+                                         gpointer        data,
+                                         GDestroyNotify  notify)
+{
+  g_autoptr (GSource) source = NULL;
+  guint id;
+
+  g_return_val_if_fail (function != NULL, 0);
+
+  source = gm_timeout_source_once_new (1000L * seconds, CLOCK_BOOTTIME_ALARM);
+
+  if (priority != G_PRIORITY_DEFAULT)
+    g_source_set_priority (source, priority);
+
+  g_source_set_callback (source, (GSourceFunc)function, data, notify);
+  id = g_source_attach (source, NULL);
+
+  return id;
+}
+
+
+guint
+gm_wakeup_timeout_add_seconds_once (int             seconds,
+                                    GSourceOnceFunc function,
+                                    gpointer        data)
+{
+  g_return_val_if_fail (function != NULL, 0);
+
+  return gm_wakeup_timeout_add_seconds_once_full (G_PRIORITY_DEFAULT, seconds, function, data, NULL);
 }
