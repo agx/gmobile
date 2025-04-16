@@ -89,4 +89,15 @@ if get_option('gtk_doc') or get_option('introspection')
     install: get_option('introspection'),
     extra_args: gmobile_gir_extra_args,
   )
+
+  if get_option('vapi')
+    gmobile_vapi = gnome.generate_vapi(
+      'gmobile',
+      sources: gmobile_gir[0],
+      packages: ['gio-2.0'],
+      install: true,
+      install_dir: vapidir,
+      metadata_dirs: [meson.current_source_dir()],
+    )
+  endif
 endif

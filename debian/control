@@ -8,6 +8,7 @@ Build-Depends:
  libglib2.0-dev,
  libjson-glib-dev,
  meson,
+ valac,
  pkgconf,
  python3-docutils <!nodoc>,
 Standards-Version: 4.6.2
