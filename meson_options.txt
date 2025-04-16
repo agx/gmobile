@@ -17,6 +17,9 @@ option('man',
 option('introspection', type: 'boolean', value: true,
        description : 'Build introspection data (requires gobject-introspection)')
 
+option('vapi', type: 'boolean', value: true,
+       description : 'Build vapi (requires introspection)')
+
 option('hwdb',
        type: 'boolean', value: true,
        description : 'Whether to install udev rules and hwdb entries')

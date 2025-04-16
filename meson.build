@@ -17,6 +17,7 @@ libdir = prefix / get_option('libdir')
 pkgdatadir = datadir / meson.project_name()
 pkglibdir = libdir / meson.project_name()
 udevdir = prefix / 'lib' / 'udev'
+vapidir = datadir / 'vala' / 'vapi'
 
 global_c_args = ['-DGMOBILE_COMPILATION']
 
@@ -97,6 +98,7 @@ summary(
     'Examples': get_option('examples'),
     'Tests': get_option('tests'),
     'Introspection': get_option('introspection'),
+    'VAPI': get_option('vapi'),
     'Docmentation': get_option('gtk_doc'),
     'Manual pages': get_option('man'),
     'Hwdb': get_option('hwdb'),
