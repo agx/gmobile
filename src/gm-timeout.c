@@ -104,7 +104,7 @@ static GSourceFuncs gm_timeout_once_source_funcs = {
 
 
 static GSource *
-gm_timeout_source_once_new (gulong timeout_ms)
+gm_timeout_source_once_new (gulong timeout_ms, int clockid)
 {
   int fdf, fsf;
   GmTimeoutOnce *timer = (GmTimeoutOnce *) g_source_new (&gm_timeout_once_source_funcs,
@@ -112,7 +112,7 @@ gm_timeout_source_once_new (gulong timeout_ms)
 
   timer->timeout_ms = timeout_ms;
   g_source_set_static_name ((GSource *)timer, "[gm] boottime timeout source");
-  timer->fd = timerfd_create (CLOCK_BOOTTIME, 0);
+  timer->fd = timerfd_create (clockid, 0);
   if (timer->fd == -1)
     return (GSource*)timer;
 
@@ -165,7 +165,7 @@ gm_timeout_add_seconds_once_full (gint            priority,
 
   g_return_val_if_fail (function != NULL, 0);
 
-  source = gm_timeout_source_once_new (1000L * seconds);
+  source = gm_timeout_source_once_new (1000L * seconds, CLOCK_BOOTTIME);
 
   if (priority != G_PRIORITY_DEFAULT)
     g_source_set_priority (source, priority);
