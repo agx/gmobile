@@ -28,9 +28,11 @@ guint       gm_wakeup_timeout_add_seconds_once_full (int             priority,
                                                      gulong          seconds,
                                                      GSourceOnceFunc function,
                                                      gpointer        data,
-                                                     GDestroyNotify  notify);
+                                                     GDestroyNotify  notify,
+                                                     GError        **err);
 guint       gm_wakeup_timeout_add_seconds_once      (int             seconds,
                                                      GSourceOnceFunc function,
-                                                     gpointer        data);
+                                                     gpointer        data,
+                                                     GError        **err);
 
 G_END_DECLS
