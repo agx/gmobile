@@ -8,6 +8,8 @@
 
 #include "gm-timeout.h"
 
+#include <glib/gstdio.h>
+
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/timerfd.h>
@@ -81,12 +83,13 @@ gm_timeout_once_finalize (GSource *source)
 {
   GmTimeoutOnce *timer = (GmTimeoutOnce *) source;
 
-  close (timer->fd);
-  timer->fd = -1;
+  g_clear_fd (&timer->fd, NULL);
   timer->armed = FALSE;
 
-  g_source_remove_unix_fd (source, timer->tag);
-  timer->tag = NULL;
+  if (timer->tag) {
+    g_source_remove_unix_fd (source, timer->tag);
+    timer->tag = NULL;
+  }
 
   g_debug ("Finalize %p[%s]", source, g_source_get_name (source)?: "(null)");
 }
