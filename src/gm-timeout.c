@@ -108,9 +108,7 @@ gm_timeout_source_once_new (gulong timeout_ms)
                                                          sizeof (GmTimeoutOnce));
 
   timer->timeout_ms = timeout_ms;
-#if GLIB_CHECK_VERSION(2, 70, 0)
   g_source_set_static_name ((GSource *)timer, "[gm] boottime timeout source");
-#endif
   timer->fd = timerfd_create (CLOCK_BOOTTIME, 0);
   if (timer->fd == -1)
     return (GSource*)timer;
