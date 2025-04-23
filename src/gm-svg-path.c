@@ -12,10 +12,6 @@
 
 #include <math.h>
 
-#if !GLIB_CHECK_VERSION(2, 74, 0)
-# define G_REGEX_DEFAULT 0
-# define G_REGEX_MATCH_DEFAULT 0
-#endif
 
 struct bbox {
   int x1, x2, y1, y2;

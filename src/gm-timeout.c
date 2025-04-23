@@ -8,6 +8,9 @@
 
 #include "gm-timeout.h"
 
+#include <gio/gio.h>
+#include <glib/gstdio.h>
+
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/timerfd.h>
@@ -81,12 +84,13 @@ gm_timeout_once_finalize (GSource *source)
 {
   GmTimeoutOnce *timer = (GmTimeoutOnce *) source;
 
-  close (timer->fd);
-  timer->fd = -1;
+  g_clear_fd (&timer->fd, NULL);
   timer->armed = FALSE;
 
-  g_source_remove_unix_fd (source, timer->tag);
-  timer->tag = NULL;
+  if (timer->tag) {
+    g_source_remove_unix_fd (source, timer->tag);
+    timer->tag = NULL;
+  }
 
   g_debug ("Finalize %p[%s]", source, g_source_get_name (source)?: "(null)");
 }
@@ -100,20 +104,40 @@ static GSourceFuncs gm_timeout_once_source_funcs = {
 };
 
 
+static const char *
+clockid_to_name (int clockid)
+{
+  switch (clockid) {
+  case CLOCK_BOOTTIME:
+    return "[gm] boottime timeout source";
+  case CLOCK_BOOTTIME_ALARM:
+    return "[gm] boottime wakeup timeout source";
+  default:
+    g_assert_not_reached();
+    return "";
+  }
+}
+
+
 static GSource *
-gm_timeout_source_once_new (gulong timeout_ms)
+gm_timeout_source_once_new (gulong timeout_ms, int clockid, GError **err)
 {
   int fdf, fsf;
-  GmTimeoutOnce *timer = (GmTimeoutOnce *) g_source_new (&gm_timeout_once_source_funcs,
-                                                         sizeof (GmTimeoutOnce));
+  GmTimeoutOnce *timer = NULL;
 
+  timer = (GmTimeoutOnce *) g_source_new (&gm_timeout_once_source_funcs, sizeof (GmTimeoutOnce));
   timer->timeout_ms = timeout_ms;
-#if GLIB_CHECK_VERSION(2, 70, 0)
-  g_source_set_static_name ((GSource *)timer, "[gm] boottime timeout source");
-#endif
-  timer->fd = timerfd_create (CLOCK_BOOTTIME, 0);
-  if (timer->fd == -1)
-    return (GSource*)timer;
+  g_source_set_name ((GSource *)timer, clockid_to_name (clockid));
+  timer->fd = timerfd_create (clockid, 0);
+  if (timer->fd == -1) {
+    int saved_errno = errno;
+    g_set_error (err,
+                 G_IO_ERROR,
+                 g_io_error_from_errno (saved_errno),
+                 "%s", g_strerror (saved_errno));
+    g_source_unref ((GSource*)timer);
+    return NULL;
+  }
 
   fdf = fcntl (timer->fd, F_GETFD) | FD_CLOEXEC;
   fcntl (timer->fd, F_SETFD, fdf);
@@ -148,7 +172,9 @@ gm_timeout_source_once_new (gulong timeout_ms)
  * Note that glib's `g_timeout_add_seconds()` doesn't take system
  * suspend/resume into account: https://gitlab.gnome.org/GNOME/glib/-/issues/2739
  *
- * Returns: the ID (greater than 0) of the event source.
+ * Changed in 0.3.0: Returns 0 when timer setup failed
+ *
+ * Returns: the ID (greater than 0) of the event source or 0 in case of error.
  *
  * Since: 0.0.1
  **/
@@ -164,7 +190,9 @@ gm_timeout_add_seconds_once_full (gint            priority,
 
   g_return_val_if_fail (function != NULL, 0);
 
-  source = gm_timeout_source_once_new (1000L * seconds);
+  source = gm_timeout_source_once_new (1000L * seconds, CLOCK_BOOTTIME, NULL);
+  if (!source)
+    return 0;
 
   if (priority != G_PRIORITY_DEFAULT)
     g_source_set_priority (source, priority);
@@ -208,4 +236,48 @@ gm_timeout_add_seconds_once (int             seconds,
   g_return_val_if_fail (function != NULL, 0);
 
   return gm_timeout_add_seconds_once_full (G_PRIORITY_DEFAULT, seconds, function, data, NULL);
+}
+
+
+guint
+gm_wakeup_timeout_add_seconds_once_full (gint            priority,
+                                         gulong          seconds,
+                                         GSourceOnceFunc function,
+                                         gpointer        data,
+                                         GDestroyNotify  notify,
+                                         GError        **err)
+{
+  g_autoptr (GSource) source = NULL;
+  guint id;
+
+  g_return_val_if_fail (function != NULL, 0);
+
+  source = gm_timeout_source_once_new (1000L * seconds, CLOCK_BOOTTIME_ALARM, err);
+  if (!source)
+    return 0;
+
+  if (priority != G_PRIORITY_DEFAULT)
+    g_source_set_priority (source, priority);
+
+  g_source_set_callback (source, (GSourceFunc)function, data, notify);
+  id = g_source_attach (source, NULL);
+
+  return id;
+}
+
+
+guint
+gm_wakeup_timeout_add_seconds_once (int             seconds,
+                                    GSourceOnceFunc function,
+                                    gpointer        data,
+                                    GError        **err)
+{
+  g_return_val_if_fail (function != NULL, 0);
+
+  return gm_wakeup_timeout_add_seconds_once_full (G_PRIORITY_DEFAULT,
+                                                  seconds,
+                                                  function,
+                                                  data,
+                                                  NULL,
+                                                  err);
 }

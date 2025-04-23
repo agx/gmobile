@@ -44,17 +44,20 @@ on_timeout (gpointer data)
 }
 
 
-int main (int argc, char **argv)
+int
+main (int argc, char **argv)
 {
   g_autoptr(GOptionContext) opt_context = NULL;
   g_autoptr (GMainLoop) loop = NULL;
   g_autoptr (GError) err = NULL;
   int seconds = 60;
-  gboolean version = FALSE;
+  gboolean version = FALSE, wakeup = FALSE;
 
   const GOptionEntry options [] = {
     {"seconds", 's', 0, G_OPTION_ARG_INT, &seconds,
      "Sleep for that many seconds", NULL},
+    {"wakeup", 'w',  0, G_OPTION_ARG_NONE, &wakeup,
+     "Wakeup system if needed", NULL},
     {"version", 0, 0, G_OPTION_ARG_NONE, &version,
      "Show version information", NULL},
     { NULL, 0, 0, G_OPTION_ARG_NONE, NULL, NULL, NULL }
@@ -73,11 +76,26 @@ int main (int argc, char **argv)
 
   loop = g_main_loop_new (NULL, FALSE);
 
-  g_message ("Arming timer with %d seconds", seconds);
-  gm_timeout_add_seconds_once (seconds, on_timeout, loop);
+  if (wakeup) {
+    int id;
+    g_message ("Arming wakeup timer with %d seconds", seconds);
+    id = gm_wakeup_timeout_add_seconds_once (seconds,
+                                             on_timeout,
+                                             loop,
+                                             &err);
+    if (!id) {
+      g_warning ("Failed to create timer: %s", err->message);
+      return EXIT_FAILURE;
+    }
+  } else {
+    g_message ("Arming timer with %d seconds", seconds);
+    gm_timeout_add_seconds_once (seconds, on_timeout, loop);
+  }
 
   print_now ();
   g_main_loop_run (loop);
 
   print_now ();
+
+  return EXIT_SUCCESS;
 }
