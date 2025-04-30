@@ -103,6 +103,8 @@ gmobile:name:Volume keys:dt:oneplus,fajita*
 # PinePhone
 gmobile:name:1c21800.lradc:dt:pine64,pinephone-1.*
  GM_WAKEUP_KEY_DEFAULT=0
+gmobile:name:PinePhone 1c22e00.codec-jack:dt:pine64,pinephone-1.*
+ GM_WAKEUP_KEY_164=0
 
 # PinePhone Pro
 gmobile:name:adc-keys:dt:pine64,pinephone-pro*
