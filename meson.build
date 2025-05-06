@@ -14,10 +14,13 @@ bindir = prefix / get_option('bindir')
 datadir = prefix / get_option('datadir')
 localedir = prefix / get_option('localedir')
 libdir = prefix / get_option('libdir')
+libexecdir = prefix / get_option('libexecdir')
 pkgdatadir = datadir / meson.project_name()
 pkglibdir = libdir / meson.project_name()
 udevdir = prefix / 'lib' / 'udev'
 vapidir = datadir / 'vala' / 'vapi'
+installed_tests_metadir = datadir / 'installed-tests' / meson.project_name()
+installed_tests_execdir = libexecdir / 'installed-tests' / meson.project_name()
 
 global_c_args = ['-DGMOBILE_COMPILATION']
 
