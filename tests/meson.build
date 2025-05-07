@@ -6,7 +6,7 @@ if get_option('tests')
 
   tests = ['device-tree', 'display-panel', 'cutout', 'svg-path', 'timeout', 'utils']
   # These need data not available on the installed system:
-  not_installed = ['device-tree']
+  not_installed = ['test-device-tree']
 
   foreach test : tests
 
