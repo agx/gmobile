@@ -1,3 +1,15 @@
+gmobile 0.3.0
+-------------
+Released May 2025
+* New API: Allow to set wakep timers
+* Build vapi files too
+* Allow to install tests
+* Wakeup key support:
+  * Handle 3.5mm headset play-pause button on PinePhone
+* Contributors:
+    * Adam
+    * Guido Günther
+
 gmobile 0.2.2
 -------------
 Released March 2025
