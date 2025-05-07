@@ -1,3 +1,30 @@
+gmobile (0.3.0) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * ci: Update shared scripts and dotfiles to a9fef9a
+  * build: Format meson files.
+  * ci: Check meson format
+  * build: Build vapi too
+  * treewide: Drop glib version conditionals. We require glib 2.78 anyway
+  * timeout: Conditionally cleanup source members.
+    We might have partially inited sources when setting up a source fails.
+    This can happen with the following changes.
+  * timeout: Pass clockid. This allows us to use the code for different
+    clock types
+  * timeout: Add wakeup timer
+  * timeout: Bubble up errors. This slightly changes the existing API/ABI as
+    gm_timeout_add_seconds_once can now return 0 but given the current users
+    that is likely o.k.
+  * example: Add wake system example
+  * build: Allow to install tests
+  * packaging: Add package for tests
+  * packaging: Add autopkgtest that runs the installed tests
+
+  [ Adam ]
+  * data/hwdb: Add pinephone 3.5mm headset play-pause button
+
+ -- Guido Günther <agx@sigxcpu.org>  Wed, 07 May 2025 09:30:39 +0200
+
 gmobile (0.2.2) experimental; urgency=medium
 
   [ Guido Günther ]
