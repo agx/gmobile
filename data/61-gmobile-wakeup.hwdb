@@ -49,6 +49,17 @@
 # would remove the volume keys from the list of wakeup keys
 
 ###########################################################
+# Fairphone
+###########################################################
+
+# Fairphone 5
+gmobile:name:pmic_resin:dt:fairphone,fp5*
+ GM_WAKEUP_KEY_114=0
+
+gmobile:name:gpio-keys:dt:fairphone,fp5*
+ GM_WAKEUP_KEY_115=0
+
+###########################################################
 # Generic AVRCP bluetooth hardware
 ###########################################################
 gmobile:name:* _AVRCP_:*
