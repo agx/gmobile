@@ -4,7 +4,7 @@ if get_option('tests')
 
   test_cflags = ['-DTEST_DATA_DIR="@0@"'.format(meson.current_source_dir() / 'data')]
 
-  tests = ['cutout', 'display-panel', 'svg-path', 'timeout', 'utils', 'device-tree']
+  tests = ['cutout', 'display-panel', 'mcc-mnc', 'svg-path', 'timeout', 'utils', 'device-tree']
   # These need data not available on the installed system:
   not_installed = ['test-device-tree']
 
