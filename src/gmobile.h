@@ -22,5 +22,6 @@
 #include "gm-display-panel.h"
 #include "gm-error.h"
 #include "gm-main.h"
+#include "gm-mcc-mnc.h"
 #include "gm-timeout.h"
 #include "gm-util.h"
