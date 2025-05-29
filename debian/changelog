@@ -1,3 +1,17 @@
+gmobile (0.3.1) experimental; urgency=medium
+
+  [ fossdd ]
+  * data: Add border radius for oneplus,enchilada
+
+  [ Evangelos Ribeiro Tzaras ]
+  * data/hwdb: Insert empty line to indicate a new input device.
+    Otherwise it will get ignored (slightly edited for readability):
+
+  [ Guido Günther ]
+  * tests: Fix name of not-installed test
+
+ -- Guido Günther <agx@sigxcpu.org>  Thu, 29 May 2025 09:04:54 +0200
+
 gmobile (0.3.0) experimental; urgency=medium
 
   [ Guido Günther ]
