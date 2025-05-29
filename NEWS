@@ -1,3 +1,14 @@
+gmobile 0.3.1
+-------------
+Released May 2025
+* data: Add border radius for oneplus,enchilada
+* data/hwdb: Insert empty line to indicate a new input device.
+  tests: Fix name of not-installed test
+* Contributors:
+    * Evangelos Ribeiro Tzaras
+    * fossdd
+    * Guido Günther
+
 gmobile 0.3.0
 -------------
 Released May 2025
