@@ -1,3 +1,27 @@
+gmobile (0.4.0) experimental; urgency=medium
+
+  [ Guido Günther ]
+  * tests: Fix name of not-installed test
+  * build: Start 0.4.0 cycle
+  * tests: Sort alphabetically
+  * gm-mcc-mnc: Add MCC to ISO country code conversion.
+    We use this in Chatty, Calls and Cbd so it should move to a library.
+  * doc: Fix manpage subject.
+
+  [ Evangelos Ribeiro Tzaras ]
+  * data/hwdb: Insert empty line to indicate a new input device.
+    Fixes b1cd28b89a105b83b3b485c28f94af0b53dc6966
+  * data/hwdb: Add Fairphone 5
+  * meson: Fix typo
+
+  [ fossdd ]
+  * data: Add border radius for oneplus,enchilada
+
+  [ Bardia Moshiri ]
+  * data/hwdb: Add FuriPhone FLX1
+
+ -- Guido Günther <agx@sigxcpu.org>  Sat, 21 Jun 2025 10:59:16 +0200
+
 gmobile (0.3.0) experimental; urgency=medium
 
   [ Guido Günther ]
